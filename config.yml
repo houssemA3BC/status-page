@@ -1,9 +1,0 @@
-baseURL: "https://tonpseudo.github.io/status/"
-title: "Toto Status"
-languageCode: "fr"
-theme: "cstate"
-buildFuture: true
-params:
-  brand: "Toto"
-  description: "Suivi en temps réel du service Tata"
-  dateFormat: "2006-01-02 15:04:05"
