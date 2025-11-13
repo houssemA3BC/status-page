@@ -5,32 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Toto Status</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
   <header>
+    <img src="img/logo.png" alt="Logo Toto" class="logo">
     <h1>Toto Status</h1>
-    <p>Suivi en temps réel du service Tata</p>
+    <p>Suivi en temps réel des services</p>
   </header>
 
-  <main>
-    <section class="service">
-      <h2>Service : Tata</h2>
-      <p>Description : Service principal de l’organisation Toto</p>
-      <p>Statut actuel : <span class="status issue">Dégradé</span></p>
-    </section>
+  <nav>
+    <button class="tab-button active" data-tab="incidents">Incidents</button>
+    <button class="tab-button" data-tab="maintenances">Maintenances</button>
+    <button class="tab-button" data-tab="historique">Historique</button>
+  </nav>
 
-    <section class="incidents">
-      <h2>Incidents récents</h2>
+  <main>
+    <!-- Onglet Incidents -->
+    <section id="incidents" class="tab active">
+      <h2>Incidents en cours</h2>
       <ul>
         <li>
-          <strong>2025-11-12 08:45</strong> - Dégradation du service Tata : lenteurs. <em>En cours</em>
+          <strong>12/11/2025 08:45</strong> — Dégradation du service Tata (lenteurs).
+          <em>En cours</em>
         </li>
+      </ul>
+    </section>
+
+    <!-- Onglet Maintenances -->
+    <section id="maintenances" class="tab">
+      <h2>Maintenances planifiées</h2>
+      <ul>
+        <li>
+          <strong>15/11/2025 02:00–04:00</strong> — Maintenance de la base de données Tata.
+          <em>Prévue</em>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Onglet Historique -->
+    <section id="historique" class="tab">
+      <h2>Historique</h2>
+      <ul>
+        <li><strong>05/11/2025</strong> — Incident mineur résolu sur le service Tata.</li>
+        <li><strong>20/10/2025</strong> — Maintenance réseau terminée avec succès.</li>
       </ul>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Toto</p>
+    <p>© 2025 Toto — Page de statut</p>
   </footer>
 </body>
 </html>
