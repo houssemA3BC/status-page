@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toto Status</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script defer src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toto Status Page</title>
+
+  <!-- Styles externes -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <img src="img/logo.png" alt="Logo Toto" class="logo">
-    <h1>Toto Status</h1>
-    <p>Suivi en temps réel des services</p>
+    <img src="img/logo.png" alt="Logo Toto" />
+    <h1>Toto Status Page</h1>
   </header>
 
   <nav>
     <button class="tab-button active" data-tab="incidents">Incidents</button>
     <button class="tab-button" data-tab="maintenances">Maintenances</button>
-    <button class="tab-button" data-tab="historique">Historique</button>
+    <button class="tab-button" data-tab="history">Historique</button>
   </nav>
 
   <main>
@@ -28,20 +27,20 @@
     </section>
 
     <section id="maintenances" class="tab">
-      <h2>Maintenances</h2>
+      <h2>Maintenances programmées</h2>
       <div id="maintenance-list"></div>
     </section>
 
-    <section id="historique" class="tab">
+    <section id="history" class="tab">
       <h2>Historique</h2>
       <div id="history-list"></div>
     </section>
   </main>
 
-  <footer>
-    <p>© 2025 Toto — Page de statut</p>
-  </footer>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="script.js"></script>
+  <!-- Librairie de rendu Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Script principal -->
+  <script src="script.js"></script>
 </body>
 </html>
