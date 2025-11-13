@@ -8,11 +8,21 @@ permissions:
   contents: write
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Generate data/index.json
+        run: |
+          mkdir -p data
+          echo "[" > data/index.json
+          find data/incidents -name "*.md" -type f -printf '{"type":"incident","path":"%p"},\n' >> data/index.json || true
+          find data/maintenances -name "*.md" -type f -printf '{"type":"maintenance","path":"%p"},\n' >> data/index.json || true
+          sed -i '$ s/,$//' data/index.json
+          echo "]" >> data/index.json
+          cat data/index.json
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
