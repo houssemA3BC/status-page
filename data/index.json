@@ -1,6 +1,10 @@
 [
   {
     "type": "incident",
+    "path": "data/incidents/2015-11-13-sms-non-livrés.md"
+  },
+  {
+    "type": "incident",
     "path": "data/incidents/2015-11-13-sms-non-livres.md"
   },
   {
