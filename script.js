@@ -5,11 +5,17 @@ async function fetchJSON(path) {
 }
 
 async function fetchMarkdown(path) {
-  const res = await fetch(path);
+  const base = window.location.pathname.includes("/status-page")
+    ? "/status-page/"
+    : "/";
+  const url = window.location.origin + base + path.replace(/^\.?\//, "");
+  const res = await fetch(url);
+  if (!res.ok) return null;
   return await res.text();
 }
 
 function parseMarkdown(md) {
+  if (!md) return { meta: {}, content: "" };
   const meta = {};
   const match = md.match(/^---([\s\S]+?)---/);
   if (match) {
@@ -40,20 +46,54 @@ function display(files) {
   const hist = document.getElementById("history-list");
 
   files.forEach(f => {
-    const html = `<div class="card">
-      <h3>${f.meta.title}</h3>
-      <p>${f.meta.date || ""}</p>
-      <a href="${f.path}" target="_blank">Détails</a>
-    </div>`;
+    const title = f.meta.title || "Sans titre";
+    const date = f.meta.date || "";
+    const status = (f.meta.status || "").toLowerCase();
 
-    const st = (f.meta.status || "").toLowerCase();
+    const html = `
+      <div class="card">
+        <h3>${title}</h3>
+        <p>${date}</p>
+        <button class="details-btn" data-content="${encodeURIComponent(f.content)}" data-title="${title}">
+          Voir détails
+        </button>
+      </div>`;
+
+    // tri logique
     if (f.type === "incident") {
-      if (st === "ongoing") inc.innerHTML += html;
-      else hist.innerHTML += html;
+      if (status === "resolved") hist.innerHTML += html;
+      else inc.innerHTML += html;
     } else if (f.type === "maintenance") {
-      if (st === "planned") main.innerHTML += html;
-      else hist.innerHTML += html;
+      if (status === "done") hist.innerHTML += html;
+      else main.innerHTML += html;
     }
+  });
+
+  // activer les boutons détails
+  document.querySelectorAll(".details-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const content = decodeURIComponent(btn.dataset.content);
+      const title = btn.dataset.title;
+      openPopup(title, content);
+    });
+  });
+}
+
+// Popup
+function openPopup(title, content) {
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.innerHTML = `
+    <div class="modal-content">
+      <h2>${title}</h2>
+      <div class="modal-body">${marked.parse(content)}</div>
+      <button class="close-btn">Fermer</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.querySelector(".close-btn").addEventListener("click", () => {
+    modal.remove();
   });
 }
 

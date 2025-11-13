@@ -1,7 +1,7 @@
 ---
 title: "Problème d'envoie de SMS"
 date: 2025-11-12 08:45
-status: ongoing
+status: resolved
 service: Tata
 ---
 
