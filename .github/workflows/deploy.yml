@@ -14,14 +14,31 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Generate data/index.json
         run: |
           mkdir -p data
-          echo "[" > data/index.json
-          find data/incidents -name "*.md" -type f -printf '{"type":"incident","path":"%p"},\n' >> data/index.json || true
-          find data/maintenances -name "*.md" -type f -printf '{"type":"maintenance","path":"%p"},\n' >> data/index.json || true
-          sed -i '$ s/,$//' data/index.json
-          echo "]" >> data/index.json
+          echo "[]" > data/index.json
+
+          # Ajouter incidents
+          if [ -d data/incidents ]; then
+            for f in $(find data/incidents -type f -name "*.md"); do
+              jq --arg type "incident" --arg path "$f" \
+                '. += [{"type":$type,"path":$path}]' data/index.json > tmp.json && mv tmp.json data/index.json
+            done
+          fi
+
+          # Ajouter maintenances
+          if [ -d data/maintenances ]; then
+            for f in $(find data/maintenances -type f -name "*.md"); do
+              jq --arg type "maintenance" --arg path "$f" \
+                '. += [{"type":$type,"path":$path}]' data/index.json > tmp.json && mv tmp.json data/index.json
+            done
+          fi
+
+          echo "✅ Fichier généré :"
           cat data/index.json
 
       - name: Deploy to GitHub Pages
