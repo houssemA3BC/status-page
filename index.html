@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Toto Status</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -21,35 +22,19 @@
   </nav>
 
   <main>
-    <!-- Onglet Incidents -->
     <section id="incidents" class="tab active">
       <h2>Incidents en cours</h2>
-      <ul>
-        <li>
-          <strong>12/11/2025 08:45</strong> — Dégradation du service Tata (lenteurs).
-          <em>En cours</em>
-        </li>
-      </ul>
+      <div id="incident-list"></div>
     </section>
 
-    <!-- Onglet Maintenances -->
     <section id="maintenances" class="tab">
-      <h2>Maintenances planifiées</h2>
-      <ul>
-        <li>
-          <strong>15/11/2025 02:00–04:00</strong> — Maintenance de la base de données Tata.
-          <em>Prévue</em>
-        </li>
-      </ul>
+      <h2>Maintenances</h2>
+      <div id="maintenance-list"></div>
     </section>
 
-    <!-- Onglet Historique -->
     <section id="historique" class="tab">
       <h2>Historique</h2>
-      <ul>
-        <li><strong>05/11/2025</strong> — Incident mineur résolu sur le service Tata.</li>
-        <li><strong>20/10/2025</strong> — Maintenance réseau terminée avec succès.</li>
-      </ul>
+      <div id="history-list"></div>
     </section>
   </main>
 
